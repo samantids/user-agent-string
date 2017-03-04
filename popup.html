@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>User Agent String Parser</title>
+		<link rel="stylesheet" href="popup.css">
+		<script type="text/javascript" src="config.js"></script>
+		<script type="text/javascript" src="popup.js"></script>
+	</head>
+
+	<body>
+		<h1>Enter a user agent string:</h1>
+		<form id="user_form" action="" method="POST">
+			<textarea id="user_string" class="margin--bottom" type="text" name="user_agent"></textarea>
+			<input id="user_key" type="hidden" name="user_key"/>
+			<button id="parse_button" class="margin--bottom">Parse!</button>
+		</form>
+		<div id="response_div"></div>
+	</body>
+</html>
