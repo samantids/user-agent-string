@@ -3,11 +3,17 @@
 
 	"name": "User Agent String Parser",
 	"description": "This extension will convert a user agent string to browser information",
-	"version": "1.0",
+	"version": "1.0.1",
 
 	"browser_action": {
 		"default_icon": "icon.png",
 		"default_popup": "popup.html"
-	}
+	},
+
+	"permissions": [
+		"storage",
+		"https://api.whatismybrowser.com/*",
+		"http://api.whatismybrowser.com/*"
+	]	
 
 }

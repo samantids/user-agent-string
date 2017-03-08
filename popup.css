@@ -3,6 +3,30 @@ textarea{
 	height: 50px;
 }
 
+input{
+	width: 300px;
+}
+
+button{
+	padding: 4px;
+}
+
 .margin--bottom{
 	margin-bottom: 20px;
+}
+
+#key_form_button{
+	margin: 10px;
+}
+
+a:focus{
+	outline: none;
+}
+
+button:focus{
+	outline: none;
+}
+
+.display--none{
+	display: none;
 }

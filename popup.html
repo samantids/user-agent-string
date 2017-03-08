@@ -8,6 +8,19 @@
 	</head>
 
 	<body>
+		<div id="sign_in">
+			<h1>User Agent String Parser</h1>
+			<h3>Enter your key from <a href="https://developers.whatismybrowser.com/" target="_blank">What is my browser?</a></h3>
+			<form id="key_form">
+				<input id="key_form_input" />
+				<button id="key_form_button">Submit Key</button>
+			</form>
+		</div> 
+
+		<div id="change_key">
+			<button id="change_key_button">Change API Key</button>
+		</div>
+
 		<h1>Enter a user agent string:</h1>
 		<form id="user_form" action="" method="POST">
 			<textarea id="user_string" class="margin--bottom" type="text" name="user_agent"></textarea>
