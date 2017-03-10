@@ -36,13 +36,15 @@ addEventListener("DOMContentLoaded", function(){
 		}); 
 	}
 
-	//checks for a key, if present myKey is set and sign in page won't appear
+	//checks for a key, if present myKey is set and sign in page won't appear; if not present, hide changeKey button
 	function getKey(){
 		chrome.storage.sync.get("newKeyValue", function(data){
 			if(data.newKeyValue){
 				myKey = data.newKeyValue;
 				signIn.classList.add("display--none");
-			} 
+			} else {
+				changeKeyButton.style.visibility = "hidden";
+			}
 		});
 	}
 
