@@ -1,32 +1,41 @@
-textarea{
+textarea {
 	width: 400px;
 	height: 50px;
 }
 
-input{
+input {
 	width: 300px;
 }
 
-button{
+button {
 	padding: 4px;
 }
 
-.margin--bottom{
+
+.margin--bottom {
 	margin-bottom: 20px;
 }
 
-#key_form_button{
+.text--bold {
+	font-weight: bold;
+}
+
+.error_message {
+	color: red;
+}
+
+.success_message {
+	color: green;
+}
+
+#key_form_button {
 	margin: 10px;
 }
 
-a:focus{
+a:focus, button:focus {
 	outline: none;
 }
 
-button:focus{
-	outline: none;
-}
-
-.display--none{
+.display--none {
 	display: none;
 }

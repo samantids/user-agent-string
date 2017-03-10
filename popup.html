@@ -3,7 +3,6 @@
 	<head>
 		<title>User Agent String Parser</title>
 		<link rel="stylesheet" href="popup.css">
-		<script type="text/javascript" src="config.js"></script>
 		<script type="text/javascript" src="popup.js"></script>
 	</head>
 
@@ -16,13 +15,14 @@
 				<button id="key_form_button">Submit Key</button>
 			</form>
 		</div> 
+		<div id="sign_in_message"></div>
 
 		<div id="change_key">
 			<button id="change_key_button">Change API Key</button>
 		</div>
 
 		<h1>Enter a user agent string:</h1>
-		<form id="user_form" action="" method="POST">
+		<form id="user_form" method="POST">
 			<textarea id="user_string" class="margin--bottom" type="text" name="user_agent"></textarea>
 			<input id="user_key" type="hidden" name="user_key"/>
 			<button id="parse_button" class="margin--bottom">Parse!</button>

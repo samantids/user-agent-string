@@ -3,53 +3,50 @@ addEventListener("DOMContentLoaded", function(){
 	
 	var keyFormInput = document.getElementById("key_form_input"),
 		keyFormButton = document.getElementById("key_form_button"),
-		signIn = document.getElementById("sign_in");
-
-	var changeKeyButton = document.getElementById("change_key_button");
-
-	var userForm = document.getElementById("user_form"),
+		signIn = document.getElementById("sign_in"),
+		signInMessage = document.getElementById("sign_in_message"),
+		changeKeyButton = document.getElementById("change_key_button"),
+		userForm = document.getElementById("user_form"),
 		parseButton = document.getElementById("parse_button"),
 		userKey = document.getElementById("user_key"),
 		userAgent = document.getElementById("user_string"),
+		responseDiv = document.getElementById("response_div"),
 		myKey;
 	
+	//set initial state, hide sign in form if key already present
 	getKey();
 	
+	//lets the user set the key
 	function addKey(){
 		var newKey = keyFormInput.value;
-		//check for value
+		//check for value and return error if empty
 		if(!newKey){
-			alert('Error: no key added');
+			signInMessage.innerHTML = "<span class='error_message text--bold'>Error: no key added</span>";
 			return;
 		};
-		//save the key in Chrome's storage Api
+		//if key is not empty save the key in Chrome's storage Api and show success message
 		chrome.storage.sync.set({"newKeyValue": newKey}, function(){
-			alert("Your Key is now: " + newKey);
-			console.log("Key set to: " + newKey);
+			myKey = newKey;
+			signIn.classList.add("display--none");
+			signInMessage.innerHTML = "<span class='success_message text--bold'>Your key is now set!</span>";
+			setTimeout(function(){
+				signInMessage.innerHTML = "";
+				changeKeyButton.style.visibility = "visible";
+				}, 3000);
 		}); 
 	}
 
-	function hideSignIn(){
-		chrome.storage.sync.get("newKeyValue", function(data){
-			if(data.newKeyValue !== ""){
-				signIn.classList.add("display--none");	
-			}
-		})
-	}
-
-	hideSignIn();
-
+	//checks for a key, if present myKey is set and sign in page won't appear
 	function getKey(){
 		chrome.storage.sync.get("newKeyValue", function(data){
-			if(data.newKeyValue !== ""){
-
+			if(data.newKeyValue){
 				myKey = data.newKeyValue;
-			} else {
-				return "nokey";
-			}
+				signIn.classList.add("display--none");
+			} 
 		});
 	}
 
+	//sends request to whatismybrowser
 	function sendData(){
 		var XHR = new XMLHttpRequest();
 
@@ -57,16 +54,24 @@ addEventListener("DOMContentLoaded", function(){
 
 		var FD = new FormData(userForm);
 
-		//success
-		XHR.addEventListener("load", function(event){
-			var responseDiv = document.getElementById("response_div");
+		//successful request
+		XHR.addEventListener("load", function(event){ 
 			var responseText = JSON.parse(event.target.responseText);
-			responseDiv.innerHTML = "<h3>" + responseText.parse.simple_major + "</h3>";
+			//success response displays user agent parse 
+			if(responseText.result == "success"){
+				responseDiv.innerHTML = "<h3>" + responseText.parse.simple_major + "</h3>";
+			//error response displays provided error message
+			} else {
+				responseDiv.innerHTML = "<h3 class='error_message'>" + responseText.message + "</h3>";
+			}
 		});
 
-		//error
+		//error with request
 		XHR.addEventListener("error", function(event){
-			alert("Oops! Something went wrong.");
+			responseDiv.innerHTML = "Oops! Something went wrong.";
+			setTimeout(function(){
+				responseDiv.innerHTML = "";
+			}, 3000);
 		});
 
 		//setup request
@@ -86,7 +91,6 @@ addEventListener("DOMContentLoaded", function(){
 		signIn.classList.remove("display--none");
 		changeKeyButton.style.visibility = "hidden";
 	})
-
 
 	parseButton.addEventListener("click", function(event){
 		event.preventDefault();
